@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <style>
+        p{
+            margin-bottom: -1px;
+        }
+    </style>
+    {% with message = get_flashed_messages() %}
+    {% if message %}
+    <h2>{{message[0]}}</h2>
+    {% endif %}
+    {% endwith %}
+    <form action="/login" method="post">
+    <p>login</p>
+    <input type="text" name="login" id="login">
+    <p>key</p>
+    <input type="password" name="pass" id="pass">
+    <input type="submit" value="Login!">
+    </form>
+</body>
+</html>

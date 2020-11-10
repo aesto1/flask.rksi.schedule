@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <title>Расписание РКСИ</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+    <style>
+        .search{
+            padding-left: 30px;
+        }
+        .schedule{
+            padding-left: 30px;
+        }
+        .lessons{
+            padding-left: 20px;
+        }
+        p{
+            margin-bottom: 0px !important;
+        }
+    </style>
+    <div class="search">
+    <sub>Группа</sub>
+    <form action="/schedule" method="get">
+    <select name="group">
+        {% for group in gs %}
+            {% if session['group']==group.id %}
+                <option value="{{group.name}}" selected>{{group.name}}</option>
+            {% else %}
+            <option value="{{group.name}}">{{group.name}}</option>
+            {% endif %}
+        {% endfor %}
+    </select>
+    <button type="submit">Search</button>
+    </form>
+    </div>
+    <div class="search">
+        <sub>Преподаватель</sub>
+        <form action="/schedule" method="get">
+        <select name="teacher">
+            {% for teacher in ts %}
+                {% if session['teacher']==teacher.id %}
+                    <option value="{{teacher.name}}" selected>{{teacher.name}}</option>
+                {% else %}
+                <option value="{{teacher.name}}">{{teacher.name}}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+        <button type="submit">Search</button>
+        </form>
+        </div>
+    <hr>
+    {% if sched %}
+    <div class='schedule'>
+        <h2>{{objname}}</h2>
+        <hr>
+        <div class='lessons'>
+            {% for day in week %}
+            <div id={{day.id}} class='les'>
+                {% if day.id in grdays %}   
+                    <h3>{{day.name}} <i>{{day.date.day}}.{{day.date.month}}</i></h3>
+                    {% for lesson in sched %}
+                        {% if lesson.weekday_id == day.id %}
+                            <p id="t"><i>{{lesson.time_start}} — {{lesson.time_end}}</i></p>
+                            <p><b>{{lesson.lesson_name}}</b></p>
+                            <p>{{lesson.teacher.name}}, аудитория № {{lesson.auditory_name}}</p>
+                            <hr>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</body>
+</html>

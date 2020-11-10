@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <title>Schedule AdminPanel</title>
+</head>
+
+<body>
+    <style>
+        h2 {
+            color: #000;
+        }
+
+        body {
+            background-color: rgb(250, 250, 250);
+        }
+
+        .main {
+            margin-top: 5%;
+            width: 100vw;
+            /* display: flex;
+            justify-content: center;
+            align-items: center; */
+        }
+
+        #global__wrap {
+            display: flex;
+            flex-direction: row;
+        }
+
+        #wrap__btn {
+            width: 30%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            justify-items: center;
+            text-align: center;
+        }
+
+        #wrap__admin {
+            width: 70%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .yellowzone {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            display: inherit;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            background: #f7f768e0;
+
+        }
+
+        .redzone {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            display: inherit;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            background: #ff4f4fcf;
+        }
+
+        hr {
+            border: none;
+            /* Убираем границу для браузера Firefox */
+            color: red;
+            /* Цвет линии для остальных браузеров */
+            background-color: red;
+            /* Цвет линии для браузера Firefox и Opera */
+            height: 2px;
+        }
+        .btn{
+            margin: 10px auto;
+            border-radius: 10px;
+            background-color: #b6b6b6c0;
+            padding: 10px;
+            width: 40%;
+        }
+    </style>
+    <!-- <div class="main">
+    {% with message = get_flashed_messages() %}
+    {% if message %}
+
+    <h2>{{message[0]}}</h2>
+    {% endif %}
+    {% endwith %}
+    </div> -->
+    <div id="global__wrap">
+        <div id="wrap__btn">
+            <h3 class=" btn"><a href="asd">asd</a></h3>
+            <hr>
+            <h3 class=" btn"><a href="asd">asd</a></h3>
+        </div>
+        <div id="wrap__admin">
+            <div class='yellowzone'>
+                <form action="/admin/weekday/update" method="post">
+                    <button type="submit">UPDATE WEEKDAY</button>
+                </form>
+                <form action="/admin/groups/update" method="post">
+                    <button type="submit">UPDATE GROUPS</button>
+                </form>
+                <form action="/admin/teachers/update" method="post">
+                    <button type="submit">UPDATE TEACHERS</button>
+                </form>
+                <form action="/admin/schedule/update" method="post">
+                    <button type="submit">UPDATE SCHEDULE</button>
+                </form>
+            </div>
+            <div class='redzone'>
+                <form action="/admin/weekday/drop" method="post">
+                    <button type="submit">DROP WEEKDAY</button>
+                </form>
+                <form action="/admin/groups/drop" method="post">
+                    <button type="submit">DROP GROUPS</button>
+                </form>
+                <form action="/admin/teachers/drop" method="post">
+                    <button type="submit">DROP TEACHERS</button>
+                </form>
+                <form action="/admin/schedule/drop" method="post">
+                    <button type="submit">DROP SCHEDULE</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+
+</html>
