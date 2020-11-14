@@ -27,6 +27,8 @@ def api_iphone_today(group):
     return r
 
 
+
+
 @api.route('/api/iphone/tomorrow/<group>')
 def api_iphone_tomorrow(group):
     g = Group.query.filter_by(name=group).first()
@@ -79,9 +81,17 @@ def api_group_schedule():
 
             # Вывести 7 дней начиная с сегодня
             elif r['weekday'] == 0:
-                s = Schedule.query.filter(Schedule.date)
-                pass
-
+                week = Weekday.query.filter( Weekday.date>=datetime.combine( date.today(), datetime.min.time() ), Weekday.date<=(datetime.now()+timedelta(days=7)) ).all()
+                rasp = Schedule.query.filter(Schedule.week>=week[0].week).filter_by(group=g).all()
+                for w in week:
+                    for l in rasp:
+                        if l.weekday.wdid == w.wdid:
+                            wdate = w.date
+                            return "{} {} {}".format(wdate.day, wdate.month, wdate.year)
+                            # ЭТО БЛЯТЬ ДЕРЬМО НЕ РАБОТАЕТ!!!!:(
+                            if "{}-{}-{}".format(wdate.day, wdate.month, wdate.year) not in j['schedule']['days']: j['schedule']['days']["{}-{}-{}".format(wdate.day, wdate.month, wdate.year)] = {}
+                            j['schedule']['days']["{}-{}-{}".format(wdate.day, wdate.month, wdate.year)][int(l.time)] = {'lesson_name': l.lesson_name, 'time_start':l.time_start, 'time_end':l.time_end, 'autitory':l.auditory_name, 'teacher':l.teacher.name}
+                return Response(response=json.dumps(j, ensure_ascii=False), status=200, mimetype='application/json')
             elif r['weekday'] >=1:
                 pass
                 # Вывести конкретный день недели 
