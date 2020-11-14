@@ -38,7 +38,7 @@ def getschedulegroup():
         gs = Group.query.all()
         ts = Teacher.query.all()
         rasp = Schedule.query.filter_by(teacher=t)
-        week = Weekday.query.filter( Weekday.date>=datetime.now(), Weekday.date<=(datetime.now()+timedelta(days=7)) )
+        week = Weekday.query.filter( Weekday.date>=datetime.combine( date.today(), datetime.min.time() ), Weekday.date<=(datetime.now()+timedelta(days=7)) )
         grdays = {}
         for l in rasp:
             grdays[l.weekday_id] = 1
@@ -48,20 +48,3 @@ def getschedulegroup():
     else:
         return redirect(url_for('main.mainpage'))
 
-
-@main.route('/api/groups')
-def api_groups():
-    g = Group.query.all()
-    # current_app.logger.warning(str(g))
-    return str(g)
-
-@main.route('/api/teachers')
-def api_teachers():
-    t = Teacher.query.all()
-    # current_app.logger.warning(str(g))
-    return str(t)
-
-
-@main.route('/group/<g>')
-def findgroup(g):
-    return g

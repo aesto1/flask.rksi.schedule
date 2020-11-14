@@ -42,6 +42,7 @@ class Weekday(db.Model):
     name = db.Column(db.String)
     wdid = db.Column(db.Integer)
     date = db.Column(db.DateTime)
+    week = db.Column(db.Integer)
     schedules = db.relationship('Schedule', backref='weekday')
 
 class Schedule(db.Model):
